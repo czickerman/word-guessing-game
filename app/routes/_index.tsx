@@ -19,6 +19,7 @@ export default function Index() {
   const { toast } = useToast();
 
   const [showMainContent, setShowMainContent] = useState(false);
+  const [showFirstLetter, setShowFirstLetter] = useState(false);
 
   const guessFetcher = useFetcher<typeof guessWord>();
   const wordFetcher = useFetcher<typeof getWord>();
@@ -29,7 +30,11 @@ export default function Index() {
 
   useEffect(() => {
     const correct = guessFetcher.data?.guessCorrect === true;
-    if (correct) wordFetcher.load("/loaders/getword?refresh=true");
+    if (correct) {
+      wordFetcher.load("/loaders/getword?refresh=true");
+      setShowFirstLetter(false);
+    }
+    else setShowFirstLetter(true);
 
     toast({
       title: correct ? "Good job" : "Try again",
@@ -60,7 +65,7 @@ export default function Index() {
           <>
             <div className="text-3xl flex flex-col items-start">
               <h1 className="max-w-[75vh]">Hint: {wordFetcher.data?.meaning ?? "Loading"}</h1>
-              <h1>First Letter: {wordFetcher.data?.firstLetter ?? "Loading"}</h1>
+              {showFirstLetter && <h1>First Letter: {wordFetcher.data?.firstLetter ?? "Loading"}</h1>}
               <GuessForm guessFetcher={guessFetcher} wordFetcher={wordFetcher} />
             </div>
           </>
