@@ -60,7 +60,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <WebsiteIntro setShowMainContent={setShowMainContent} showMainContent={showMainContent} score={score ?? "0"} />
+      <WebsiteIntro setShowMainContent={setShowMainContent} showMainContent={showMainContent} score={score} />
       <div className="opacity-1 animateMainContent">
         {showMainContent && (
           <div>
