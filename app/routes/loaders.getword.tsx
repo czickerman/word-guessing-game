@@ -25,7 +25,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const firstLetter = word.charAt(0);
 
   return json(
-    { meaning, firstLetter, score: cookie.score ?? 0, pastWord: refresh && requestPastWord ? pastWord : "" },
+    { meaning, firstLetter, pastWord: refresh && requestPastWord ? pastWord : "" },
     { headers: { "Set-Cookie": await sessionCookie.serialize(cookie) } }
   );
 }

@@ -4,7 +4,7 @@ import { TypeAnimation } from "react-type-animation";
 interface WebsiteIntroProps {
   setShowMainContent: React.Dispatch<React.SetStateAction<boolean>>;
   showMainContent: boolean;
-  score: number;
+  score: string;
 }
 
 export default function WebsiteIntro({ setShowMainContent, showMainContent, score }: WebsiteIntroProps) {

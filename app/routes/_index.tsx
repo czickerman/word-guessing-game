@@ -7,6 +7,7 @@ import { loader as guessWord } from "./loaders.guessword";
 import { loader as getWord } from "./loaders.getword";
 import GuessForm from "~/components/GuessForm";
 import { useToast } from "~/components/ui/use-toast";
+import { useLocalStorage } from "~/hooks/useLocalStorage";
 
 export const meta: MetaFunction = () => {
   return [
@@ -24,6 +25,8 @@ export default function Index() {
   const guessFetcher = useFetcher<typeof guessWord>();
   const wordFetcher = useFetcher<typeof getWord>();
 
+  const [score, setScore] = useLocalStorage("score", "0");
+
   useEffect(() => {
     wordFetcher.load("/loaders/getword");
   }, []);
@@ -32,6 +35,7 @@ export default function Index() {
     const correct = guessFetcher.data?.guessCorrect === true;
     if (correct) {
       wordFetcher.load("/loaders/getword?refresh=true");
+      setScore((s) => (s && !isNaN(parseInt(s)) ? (parseInt(s) + 1).toString() : "0"));
       setShowFirstLetter(false);
     } else setShowFirstLetter(true);
 
@@ -56,11 +60,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <WebsiteIntro
-        setShowMainContent={setShowMainContent}
-        showMainContent={showMainContent}
-        score={wordFetcher.data?.score}
-      />
+      <WebsiteIntro setShowMainContent={setShowMainContent} showMainContent={showMainContent} score={score ?? "0"} />
       <div className="opacity-1 animateMainContent">
         {showMainContent && (
           <div>
