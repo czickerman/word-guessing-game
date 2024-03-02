@@ -63,13 +63,19 @@ export default function Index() {
       />
       <div className="opacity-1 animateMainContent">
         {showMainContent && (
-          <>
+          <div>
             <div className="text-3xl flex flex-col items-start">
               <h1 className="max-w-[75vh]">Hint: {wordFetcher.data?.meaning ?? "Loading"}</h1>
               {showFirstLetter && <h1>First Letter: {wordFetcher.data?.firstLetter ?? "Loading"}</h1>}
               <GuessForm guessFetcher={guessFetcher} wordFetcher={wordFetcher} />
             </div>
-          </>
+            <a
+              className="hover:underline transition-all fixed bottom-0 left-0 ml-1"
+              href="https://github.com/czickerman/word-guessing-game"
+            >
+              View Github
+            </a>
+          </div>
         )}
       </div>
     </div>
