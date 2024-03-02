@@ -33,8 +33,7 @@ export default function Index() {
     if (correct) {
       wordFetcher.load("/loaders/getword?refresh=true");
       setShowFirstLetter(false);
-    }
-    else setShowFirstLetter(true);
+    } else setShowFirstLetter(true);
 
     toast({
       title: correct ? "Good job" : "Try again",
@@ -45,6 +44,8 @@ export default function Index() {
 
   useEffect(() => {
     const pastWord = wordFetcher.data?.pastWord;
+    setShowFirstLetter(false);
+
     if (pastWord && pastWord !== "")
       toast({
         title: "Refreshing word",
